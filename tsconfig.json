@@ -11,6 +11,16 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "paths": {
+      "@models": ["src/@models"],
+      "@guards": ["src/@guards"],
+      "@enums": ["src/@enums"],
+      "@interfaces": ["src/@interfaces"],
+      "@services": ["src/@services"],
+      "@decorators": ["src/@decorators"],
+      "@core": ["src/@core"],
+      "@common": ["src/@common"]
+    },
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
