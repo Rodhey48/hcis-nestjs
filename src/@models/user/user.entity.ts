@@ -1,11 +1,14 @@
-import { Column, Entity, OneToMany, Unique } from 'typeorm';
+import { BeforeInsert, Column, Entity, OneToMany, Unique } from 'typeorm';
 import { BaseEntity } from '../base.entity';
 import { UserRolesEntity } from './user-roles.entity';
+import * as bcrypt from 'bcrypt';
 
 @Entity('users')
 @Unique(['email', 'username', 'phone'])
 export class UsersEntity extends BaseEntity {
-  constructor(partial: Partial<UsersEntity>) {
+  constructor(
+      partial: Partial<UsersEntity>
+    ) {
     super();
     Object.assign(this, partial);
   }
@@ -13,13 +16,13 @@ export class UsersEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: true })
   name: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', unique: true })
   email: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', unique: true })
   username: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', nullable: true, unique: true })
   phone: string;
 
   @Column({ type: 'varchar' })
@@ -35,4 +38,11 @@ export class UsersEntity extends BaseEntity {
 
   @OneToMany(() => UserRolesEntity, userRoles => userRoles.user)
   roles: UserRolesEntity[];
+
+
+  //build funct
+  @BeforeInsert()
+  async beforeInsert() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
 }

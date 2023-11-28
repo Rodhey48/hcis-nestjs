@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 
 require('dotenv').config();
 
@@ -17,12 +18,12 @@ require('dotenv').config();
       database: process.env.DB_NAME,
       entities: ['dist/**/*.entity.js'],
       migrationsTableName: 'migration',
-      migrations: ['dist/migrations/*.js'],
+      migrations: ['dist/@config/database/migrations/*.js'],
       synchronize: false,
       //   logging: true
     }),
+    AuthModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  
 })
 export class AppModule {}

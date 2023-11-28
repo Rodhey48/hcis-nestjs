@@ -19,7 +19,8 @@
       "@services": ["src/@services"],
       "@decorators": ["src/@decorators"],
       "@core": ["src/@core"],
-      "@common": ["src/@common"]
+      "@common": ["src/@common"],
+      "@config": ["src/@config"]
     },
     "skipLibCheck": true,
     "strictNullChecks": false,

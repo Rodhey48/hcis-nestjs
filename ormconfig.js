@@ -14,8 +14,7 @@ const connectionSource = new DataSource({
   database: process.env.DB_NAME,
   entities: ['dist/**/*.entity.js'],
   migrationsTableName: 'migration',
-  migrations: ['dist/migrations/*.js'],
-
+  migrations: ['dist/@configs/database/migrations/*.js'],
   cli: {
     migrationsDir: 'migrations',
   },
