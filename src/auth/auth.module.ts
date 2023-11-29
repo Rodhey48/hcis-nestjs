@@ -4,6 +4,8 @@ import { AuthController } from "./controllers/auth.controller";
 import { AuthService } from "./services/auth.service";
 import { UsersEntity } from "../@models";
 import { UtilService } from "../@common";
+import { JWTService } from "../@services/jwt/jwt.service";
+import { BcryptService } from "../@services/bcrypt/bcrypt.service";
 
 @Module({
     imports: [
@@ -12,7 +14,7 @@ import { UtilService } from "../@common";
         ])
     ],
     controllers: [AuthController],
-    providers: [AuthService, UtilService]
+    providers: [AuthService, UtilService, JWTService, BcryptService]
 })
 
 export class AuthModule { }
