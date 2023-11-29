@@ -3,16 +3,18 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class BcryptService {
+    constructor() {}
 
-    constructor() { }
-    
     /**
-     * Check Password     
-     * 
+     * Check Password
+     *
      * @param password Password, hash Hashed Password
      * @return Promise<boolean>
      */
-    checkPassword(password: string | undefined, hash: string | undefined): Promise<boolean> {
+    checkPassword(
+        password: string | undefined,
+        hash: string | undefined,
+    ): Promise<boolean> {
         return bcrypt.compare(password, hash);
     }
 
@@ -22,7 +24,7 @@ export class BcryptService {
      * @return Promise<string>
      */
 
-    createHashPassword (planPassword: string): Promise<string> {
+    createHashPassword(planPassword: string): Promise<string> {
         return bcrypt.hash(planPassword, 10);
     }
 }

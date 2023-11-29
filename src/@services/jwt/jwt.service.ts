@@ -3,13 +3,13 @@ import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class JWTService {
-    constructor() { }
+    constructor() {}
 
     /**
      * create token
-     * @param payload 
-     * @param expiresIn 
-     * @returns 
+     * @param payload
+     * @param expiresIn
+     * @returns
      */
     createToken(payload: any, expiresIn: string = '7d') {
         const secretOrKey = process.env.JWT_KEY;
@@ -19,8 +19,8 @@ export class JWTService {
 
     /**
      *  verify token
-     * @param token 
-     * @returns 
+     * @param token
+     * @returns
      */
     verifyToken(token: string) {
         const secretOrKey = process.env.JWT_KEY;

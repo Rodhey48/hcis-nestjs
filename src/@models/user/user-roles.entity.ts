@@ -1,7 +1,7 @@
-import { Entity, ManyToOne } from "typeorm";
-import { BaseEntity } from "../base.entity";
-import { UsersEntity } from ".";
-import { RolesEntity } from "../role/roles.entity";
+import { Entity, ManyToOne } from 'typeorm';
+import { BaseEntity } from '../base.entity';
+import { UsersEntity } from '.';
+import { RolesEntity } from '../role/roles.entity';
 
 @Entity('user_roles')
 export class UserRolesEntity extends BaseEntity {
@@ -10,9 +10,17 @@ export class UserRolesEntity extends BaseEntity {
         Object.assign(this, partial);
     }
 
-    @ManyToOne(()=> UsersEntity, { onDelete: "CASCADE", onUpdate: 'CASCADE', eager: true})
+    @ManyToOne(() => UsersEntity, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        eager: true,
+    })
     user: UsersEntity;
 
-    @ManyToOne(()=> RolesEntity, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true})
+    @ManyToOne(() => RolesEntity, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        eager: true,
+    })
     role: RolesEntity;
 }
