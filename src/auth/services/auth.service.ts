@@ -27,7 +27,7 @@ export class AuthService {
         private readonly utilService: UtilService,
         private bcryptService: BcryptService,
         private jwtService: JWTService,
-    ) {}
+    ) { }
 
     /**
      * register new user

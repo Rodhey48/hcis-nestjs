@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from '../services/auth.service';
 import { LoginUserDTO, RegisterUserDTO } from '../dto/auth.dto';
+import { RequestInterface } from '@interfaces';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -18,5 +19,11 @@ export class AuthController {
     @ApiOperation({ summary: 'Login user' })
     async login(@Body() body: LoginUserDTO) {
         return this.service.login(body);
+    }
+
+    @Get('/logged')
+    @ApiOperation({ summary: 'Logged use' })
+    async loggedUser(@Req() req: RequestInterface) {
+        return this.service.userLogged(req);
     }
 }
