@@ -2,16 +2,18 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppExceptionsFilter } from './@filters/exeptions.filter';
 
 // eslint-disable-next-line
 require('dotenv').config();
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, { snapshot: true });
 
     app.enableCors();
     app.setGlobalPrefix(process.env.APP_PREFIX);
     app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalFilters(new AppExceptionsFilter());
 
     if (
         process.env.APP_SWAGGER == 'true' ||

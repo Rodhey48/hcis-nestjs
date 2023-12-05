@@ -16,6 +16,7 @@ import {
     ResponseInterface,
     UserLoggedInterface,
 } from '../../@interfaces';
+import { INTERNAL_SERVER_ERROR_MESSAGE } from '@common';
 
 @Injectable()
 export class AuthService {
@@ -35,24 +36,6 @@ export class AuthService {
      * @returns
      */
     async register(payload: RegisterUserDTO): Promise<ResponseInterface> {
-        payload.email = payload.email.trim().toLocaleLowerCase();
-        if (!this.utilService.validEmail(payload.email)) {
-            const result: ResponseInterface = {
-                status: false,
-                message: 'Format email is not valid',
-                data: null,
-            };
-            throw new BadRequestException(result);
-        }
-        payload.phone = payload.phone.trim().toLocaleLowerCase();
-        if (!this.utilService.verifyPhoneNumber(payload.phone)) {
-            const result: ResponseInterface = {
-                status: false,
-                message: 'Format Phone is not valid',
-                data: null,
-            };
-            throw new BadRequestException(result);
-        }
         const emailAlreadyUsed = await this.userRepo.findOne({
             where: {
                 email: payload.email,
@@ -78,7 +61,7 @@ export class AuthService {
                 code: 400,
             });
         }
-        payload.email = payload.email.trim().toLocaleLowerCase();
+
         const phoneAlreadyUsed = await this.userRepo.findOne({
             where: {
                 phone: payload.phone,
@@ -101,7 +84,7 @@ export class AuthService {
         } catch (err) {
             this.logger.error(`Failed save user due to ${err}`);
             throw new InternalServerErrorException(
-                'Telah terjadi gangguan pada server kami, silahkan coba beberapa saat kembali',
+                INTERNAL_SERVER_ERROR_MESSAGE,
             );
         }
     }
@@ -112,7 +95,7 @@ export class AuthService {
      * @return Token
      */
 
-    async login(payload: LoginUserDTO) {
+    async login(payload: LoginUserDTO): Promise<ResponseInterface> {
         const foundUser = await this.userRepo
             .createQueryBuilder('user')
             .select()
@@ -132,13 +115,6 @@ export class AuthService {
                 data: null,
             });
         }
-
-        console.log(
-            await this.bcryptService.checkPassword(
-                payload.password,
-                foundUser.password,
-            ),
-        );
 
         if (
             !(await this.bcryptService.checkPassword(
@@ -179,7 +155,7 @@ export class AuthService {
      * User Looged exsist
      * @param req
      */
-    async userLogged(req: RequestInterface) {
+    async userLogged(req: RequestInterface): Promise<ResponseInterface> {
         const user = await this.userRepo.findOne({
             where: {
                 id: req.user.id,
@@ -193,5 +169,17 @@ export class AuthService {
         };
 
         return result;
+    }
+
+    async validateUser(signedUser): Promise<boolean> {
+        if (signedUser && signedUser.id) {
+            return Boolean(
+                await this.userRepo.findOne({
+                    where: { id: signedUser.id }
+                }),
+            );
+        } else {
+            return false;
+        }
     }
 }

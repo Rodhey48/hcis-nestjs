@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 // eslint-disable-next-line
 require('dotenv').config();
 
@@ -21,6 +23,10 @@ require('dotenv').config();
             //   logging: true
         }),
         AuthModule,
+        // JwtModule.register({
+        //     secret: process.env.JWT_KEY
+        // }),
+        // PassportModule.register({ defaultStrategy: 'jwt' })
     ],
 })
-export class AppModule {}
+export class AppModule { }
