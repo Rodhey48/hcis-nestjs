@@ -162,11 +162,14 @@ export class AuthService {
             },
         });
 
+        delete user.password;
+
         const result: ResponseInterface = {
             status: user ? true : false,
             message: 'Success login',
             data: user ?? null,
         };
+
 
         return result;
     }
