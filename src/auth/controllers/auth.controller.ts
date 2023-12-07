@@ -11,7 +11,7 @@ import {
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from '../services/auth.service';
 import { LoginUserDTO, RegisterUserDTO } from '../dto/auth.dto';
-import { RequestInterface } from '@interfaces';
+import { RequestInterface } from '../../@interfaces';
 import { LoggingInterceptor } from '../../@services/interceptions/logging.interceptions';
 import { LoginValidatePipe } from '../pipes/login.pipes';
 import { RegisterValidatePipe } from '../pipes/register.pipes';

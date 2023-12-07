@@ -16,7 +16,7 @@ import {
     ResponseInterface,
     UserLoggedInterface,
 } from '../../@interfaces';
-import { INTERNAL_SERVER_ERROR_MESSAGE } from '@common';
+import { INTERNAL_SERVER_ERROR_MESSAGE } from '../../@common';
 
 @Injectable()
 export class AuthService {
@@ -80,6 +80,7 @@ export class AuthService {
             return {
                 status: true,
                 message: 'Success save user',
+                data: { user }
             };
         } catch (err) {
             this.logger.error(`Failed save user due to ${err}`);
@@ -167,7 +168,7 @@ export class AuthService {
         const result: ResponseInterface = {
             status: user ? true : false,
             message: 'Success login',
-            data: user ?? null,
+            data: { user },
         };
 
 

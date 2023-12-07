@@ -3,7 +3,7 @@ import { RegisterUserDTO } from "../dto/auth.dto";
 import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { UtilService } from "../../@common";
-import { ResponseInterface } from "@interfaces";
+import { ResponseInterface } from "../../@interfaces";
 
 @Injectable()
 export class RegisterValidatePipe implements PipeTransform<RegisterUserDTO> {
