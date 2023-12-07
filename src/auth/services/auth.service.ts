@@ -80,7 +80,7 @@ export class AuthService {
             return {
                 status: true,
                 message: 'Success save user',
-                data: { user }
+                data: { user },
             };
         } catch (err) {
             this.logger.error(`Failed save user due to ${err}`);
@@ -162,15 +162,14 @@ export class AuthService {
                 id: req.user.id,
             },
         });
-
-        delete user.password;
-
+        if (user) {
+            delete user.password;
+        }
         const result: ResponseInterface = {
             status: user ? true : false,
-            message: 'Success login',
-            data: { user },
+            message: user ? 'Success login' : "User not found",
+            data: user ? { user } : null,
         };
-
 
         return result;
     }
@@ -179,7 +178,7 @@ export class AuthService {
         if (signedUser && signedUser.id) {
             return Boolean(
                 await this.userRepo.findOne({
-                    where: { id: signedUser.id }
+                    where: { id: signedUser.id },
                 }),
             );
         } else {

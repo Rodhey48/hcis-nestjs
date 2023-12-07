@@ -11,7 +11,6 @@ import { BcryptService } from '../@services/bcrypt/bcrypt.service';
     imports: [TypeOrmModule.forFeature([UsersEntity])],
     controllers: [AuthController],
     providers: [AuthService, UtilService, JWTService, BcryptService],
-    exports: [AuthService]
-
+    exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

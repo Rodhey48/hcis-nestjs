@@ -1,23 +1,26 @@
-import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from "@nestjs/common";
-import { RegisterUserDTO } from "../dto/auth.dto";
-import { plainToClass } from "class-transformer";
-import { validate } from "class-validator";
-import { UtilService } from "../../@common";
-import { ResponseInterface } from "../../@interfaces";
+import {
+    ArgumentMetadata,
+    BadRequestException,
+    Injectable,
+    PipeTransform,
+} from '@nestjs/common';
+import { RegisterUserDTO } from '../dto/auth.dto';
+import { plainToClass } from 'class-transformer';
+import { validate } from 'class-validator';
+import { UtilService } from '../../@common';
+import { ResponseInterface } from '../../@interfaces';
 
 @Injectable()
 export class RegisterValidatePipe implements PipeTransform<RegisterUserDTO> {
-    constructor(
-        private readonly utilService: UtilService
-    ) { }
+    constructor(private readonly utilService: UtilService) {}
     async transform(value: RegisterUserDTO, metadata: ArgumentMetadata) {
         const { metatype } = metadata;
         if (metatype != RegisterUserDTO) {
             throw new BadRequestException('Data is incomplete');
         }
 
-        const user = plainToClass(metatype, value)
-        const errors = await validate(Object)
+        const user = plainToClass(metatype, value);
+        const errors = await validate(Object);
 
         if (errors.length > 0) {
             const errMessage = errors
@@ -27,7 +30,7 @@ export class RegisterValidatePipe implements PipeTransform<RegisterUserDTO> {
             throw new BadRequestException(errMessage);
         }
 
-        user.email = user.email.trim().toLocaleLowerCase()
+        user.email = user.email.trim().toLocaleLowerCase();
 
         if (!this.utilService.validEmail(user.email)) {
             const result: ResponseInterface = {
@@ -48,7 +51,6 @@ export class RegisterValidatePipe implements PipeTransform<RegisterUserDTO> {
             throw new BadRequestException(result);
         }
 
-
-        return user
+        return user;
     }
 }

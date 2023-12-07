@@ -11,7 +11,7 @@ describe('AppController (e2e)', () => {
     let app: INestApplication;
     let userRepository: Repository<UsersEntity>; // Gantilah 'UserEntity' dengan nama entitas yang sesua;
 
-    let token = "";
+    let token = '';
 
     beforeAll(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -32,27 +32,27 @@ describe('AppController (e2e)', () => {
 
     it('/register', async () => {
         const payload = {
-            "email": "test@testing.com",
-            "name": "albert wene testing",
-            "username": "albert wene testing",
-            "phone": "62897777767",
-            "password": "isSecret"
-        }
+            email: 'test@testing.com',
+            name: 'albert wene testing',
+            username: 'albert wene testing',
+            phone: '62897777767',
+            password: 'isSecret',
+        };
 
         const response = await request(app.getHttpServer())
             .post('/auth/register')
             .send(payload)
-            .expect(201)
+            .expect(201);
 
         expect(response.body).toHaveProperty('status', true);
         expect(response.body).toHaveProperty('message', 'Success save user');
         expect(response.body).toHaveProperty('data');
         expect(response.body.data).toHaveProperty('user');
-    })
+    });
 
     it('/login', async () => {
         const payload = {
-            identifier: "test@testing.com",
+            identifier: 'test@testing.com',
             password: 'isSecret',
         };
 
@@ -66,21 +66,21 @@ describe('AppController (e2e)', () => {
         expect(response.body).toHaveProperty('message', 'Login success');
         expect(response.body).toHaveProperty('data');
         expect(response.body.data).toHaveProperty('token');
-        token = response.body.data.token
+        token = response.body.data.token;
         // You may want to add more assertions based on your response structure
     });
 
     it('/logged', async () => {
         const response = await request(app.getHttpServer())
-            .get("/auth/logged")
+            .get('/auth/logged')
             .set('Authorization', `Bearer ${token}`)
-            .expect(200)
+            .expect(200);
 
         expect(response.body).toHaveProperty('status', true);
         expect(response.body).toHaveProperty('message', 'Success login');
         expect(response.body).toHaveProperty('data');
         expect(response.body.data).toHaveProperty('user');
-    })
+    });
 
     afterAll(async () => {
         // Tambahkan kode untuk membersihkan atau mereset basis data pengujian jika diperlukan
@@ -94,8 +94,21 @@ describe('AppController (e2e)', () => {
         await userRepository.delete({}); // Menghapus semua data pengguna
         // Lakukan operasi untuk menanamkan data awal atau seed data ke dalam basis data pengujian
         // Contoh:
-        const hashPassword = await bcrypt.hashSync('isSecret', 10)
-        await userRepository.save([{ username: 'testuser', password: hashPassword, email: "test@email.com", phone: "123456789" }, { username: 'test@test.com', password: hashPassword, email: "test@test.com", phone: "00987747" }]);
+        const hashPassword = await bcrypt.hashSync('isSecret', 10);
+        await userRepository.save([
+            {
+                username: 'testuser',
+                password: hashPassword,
+                email: 'test@email.com',
+                phone: '123456789',
+            },
+            {
+                username: 'test@test.com',
+                password: hashPassword,
+                email: 'test@test.com',
+                phone: '00987747',
+            },
+        ]);
     }
 
     // Tambahkan fungsi untuk membersihkan atau mereset basis data pengujian jika diperlukan

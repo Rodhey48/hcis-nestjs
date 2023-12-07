@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class JWTService {
-    constructor() { }
+    constructor() {}
 
     /**
      * create token
@@ -12,7 +12,7 @@ export class JWTService {
      * @returns
      */
     createToken(payload: any, expiresIn: string = '7d') {
-        const secretOrKey = process.env.JWT_KEY || "secret";
+        const secretOrKey = process.env.JWT_KEY || 'secret';
         const token = jwt.sign(payload, secretOrKey, { expiresIn });
         return token;
     }
@@ -23,7 +23,7 @@ export class JWTService {
      * @returns
      */
     verifyToken(token: string) {
-        const secretOrKey = process.env.JWT_KEY || "secret";
+        const secretOrKey = process.env.JWT_KEY || 'secret';
         return jwt.verify(token, secretOrKey);
     }
 }

@@ -21,8 +21,8 @@ require('dotenv').config();
             synchronize: false,
             //   logging: true
         }),
-        AuthModule
+        AuthModule,
     ],
-    providers: [JWTStrategy]
+    providers: [JWTStrategy],
 })
-export class AppModule { }
+export class AppModule {}

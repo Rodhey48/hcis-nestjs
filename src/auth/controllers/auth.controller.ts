@@ -22,7 +22,7 @@ import { JWTAuthGuard } from '../../@services/jwt';
 @Controller('auth')
 @UseInterceptors(new LoggingInterceptor())
 export class AuthController {
-    constructor(private readonly service: AuthService) { }
+    constructor(private readonly service: AuthService) {}
 
     @Post('/register')
     @UsePipes(new RegisterValidatePipe(new UtilService()))
