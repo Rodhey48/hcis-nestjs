@@ -140,5 +140,4 @@ describe('AuthController', () => {
         expect(result).toHaveProperty('data');
         expect(result.data).toBe(null);
     });
-
 });

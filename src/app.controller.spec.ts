@@ -7,18 +7,17 @@ import { INestApplication } from '@nestjs/common';
 describe('AppController', () => {
     let appController: AppController;
     let appModule: TestingModule;
-    let appService: AppService
+    let appService: AppService;
 
     beforeEach(async () => {
         appModule = await Test.createTestingModule({
             controllers: [AppController],
             providers: [AppService],
-            imports: [AppModule]
+            imports: [AppModule],
         }).compile();
 
         appController = appModule.get<AppController>(AppController);
         appService = appModule.get<AppService>(AppService);
-
     });
 
     describe('root', () => {
@@ -29,7 +28,6 @@ describe('AppController', () => {
     });
 
     it('should be defined', () => {
-
         expect(appModule).toBeDefined();
         expect(appController).toBeDefined();
         expect(appService).toBeDefined();

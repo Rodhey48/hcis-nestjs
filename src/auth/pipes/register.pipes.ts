@@ -12,16 +12,15 @@ import { ResponseInterface } from '../../@interfaces';
 
 @Injectable()
 export class RegisterValidatePipe implements PipeTransform<RegisterUserDTO> {
-    constructor(private readonly utilService: UtilService) {}
-    async transform(value: RegisterUserDTO, metadata: ArgumentMetadata) {
+    constructor(private readonly utilService: UtilService) { }
+    async transform(value: any, metadata: ArgumentMetadata) {
         const { metatype } = metadata;
         if (metatype != RegisterUserDTO) {
             throw new BadRequestException('Data is incomplete');
         }
 
         const user = plainToClass(metatype, value);
-        const errors = await validate(Object);
-
+        const errors = await validate(user);
         if (errors.length > 0) {
             const errMessage = errors
                 .map((err) => Object.values(err.constraints).join(', '))

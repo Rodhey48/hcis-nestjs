@@ -28,7 +28,7 @@ export class AuthService {
         private readonly utilService: UtilService,
         private bcryptService: BcryptService,
         private jwtService: JWTService,
-    ) { }
+    ) {}
 
     /**
      * register new user
@@ -167,7 +167,7 @@ export class AuthService {
         }
         const result: ResponseInterface = {
             status: user ? true : false,
-            message: user ? 'Success login' : "User not found",
+            message: user ? 'Success login' : 'User not found',
             data: user ? { user } : null,
         };
 

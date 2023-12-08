@@ -14,7 +14,7 @@ export class LoginValidatePipe implements PipeTransform<any> {
     async transform(value: any, metadata: ArgumentMetadata) {
         const { metatype } = metadata;
         if (metatype != LoginUserDTO) {
-            throw new BadRequestException('Data is incomplete');
+            throw new BadRequestException('Data is not login type');
         }
 
         const object = plainToClass(metatype, value);
