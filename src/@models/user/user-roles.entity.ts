@@ -1,4 +1,4 @@
-import { Entity, ManyToOne } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../base.entity';
 import { UsersEntity } from '.';
 import { RolesEntity } from '../role/roles.entity';
@@ -10,17 +10,19 @@ export class UserRolesEntity extends BaseEntity {
         Object.assign(this, partial);
     }
 
-    @ManyToOne(() => UsersEntity, {
+    @ManyToOne(() => UsersEntity, user => user.roles, {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
         eager: true,
     })
+    @JoinColumn()
     user: UsersEntity;
 
-    @ManyToOne(() => RolesEntity, {
+    @ManyToOne(() => RolesEntity, role => role.users, {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
         eager: true,
     })
+    @JoinColumn()
     role: RolesEntity;
 }

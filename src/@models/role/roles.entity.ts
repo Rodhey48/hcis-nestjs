@@ -1,6 +1,6 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 import { BaseEntity } from '../base.entity';
-import { UserRolesEntity } from '../user';
+import { UserRolesEntity, UsersEntity } from '../user';
 
 @Entity('roles')
 export class RolesEntity extends BaseEntity {
@@ -17,6 +17,7 @@ export class RolesEntity extends BaseEntity {
 
     // relation table
 
-    @OneToMany(() => UserRolesEntity, (userRoles) => userRoles.role)
-    users: UserRolesEntity[];
+    @ManyToMany(() => UsersEntity, (user) => user.roles)
+    @JoinTable({ name: "user_roles", synchronize: false })
+    users: UsersEntity[];
 }
