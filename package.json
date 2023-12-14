@@ -45,6 +45,7 @@
     "postgresql": "^0.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "ts-mockito": "^2.6.1",
     "tsconfig-paths": "^4.2.0",
     "typeorm": "0.3.17"
   },
@@ -90,7 +91,8 @@
     "coveragePathIgnorePatterns": [
       "/@configs",
       "/@interfaces",
-      "main.ts"
+      "main.ts",
+      "/@filters"
     ]
   }
 }

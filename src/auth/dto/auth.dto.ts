@@ -21,6 +21,10 @@ export class RegisterUserDTO {
     @IsNotEmpty({ message: "password can't empty" })
     @ApiProperty({ example: 'isSecret' })
     password: string;
+
+    @IsNotEmpty({ message: "id role can't empty" })
+    @ApiProperty({ example: ["1213 eweewe3232", "23232dwedd-rr"] })
+    role: string[];
 }
 
 export class LoginUserDTO {
