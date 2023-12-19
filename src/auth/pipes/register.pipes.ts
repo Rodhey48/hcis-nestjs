@@ -12,7 +12,7 @@ import { ResponseInterface } from '../../@interfaces';
 
 @Injectable()
 export class RegisterValidatePipe implements PipeTransform<RegisterUserDTO> {
-    constructor(private readonly utilService: UtilService) { }
+    constructor(private readonly utilService: UtilService) {}
     async transform(value: any, metadata: ArgumentMetadata) {
         const { metatype } = metadata;
         if (metatype != RegisterUserDTO) {

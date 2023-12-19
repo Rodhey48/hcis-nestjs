@@ -1,5 +1,3 @@
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { RolesEntity, UsersEntity } from 'src/@models';
 import { BcryptService } from 'src/@services/bcrypt/bcrypt.service';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
@@ -43,8 +41,10 @@ export class Seeding1702534989343 implements MigrationInterface {
 
         for (const user of dataUser) {
             const userId = await queryRunner.query(
-                `INSERT INTO users (email, name, username, phone, password) VALUES ('${user.email
-                }', '${user.name}', '${user.username}', '${user.phone
+                `INSERT INTO users (email, name, username, phone, password) VALUES ('${
+                    user.email
+                }', '${user.name}', '${user.username}', '${
+                    user.phone
                 }', '${this.bcrypt.createHashPassword(user.password)}')`,
             );
 
@@ -57,8 +57,8 @@ export class Seeding1702534989343 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query('DELETE FROM users')
-        await queryRunner.query('DELETE FROM roles')
-        await queryRunner.query('DELETE FROM user_roles')
+        await queryRunner.query('DELETE FROM users');
+        await queryRunner.query('DELETE FROM roles');
+        await queryRunner.query('DELETE FROM user_roles');
     }
 }

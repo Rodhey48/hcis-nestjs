@@ -155,15 +155,14 @@ describe('AuthService', () => {
     });
 
     it('Return failed login user', async () => {
-        jest.spyOn(repository, 'createQueryBuilder')
-            .mockReturnValueOnce({
-                where: jest.fn().mockReturnThis(),
-                andWhere: jest.fn().mockReturnThis(),
-                orWhere: jest.fn().mockReturnThis(),
-                select: jest.fn().mockReturnThis(),
-                getOne: jest.fn().mockReturnValueOnce(null), // Contoh pengembalian nilai ketika getOne dipanggil
-                execute: jest.fn().mockResolvedValueOnce([data]),
-            } as unknown as SelectQueryBuilder<UsersEntity>);
+        jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
+            where: jest.fn().mockReturnThis(),
+            andWhere: jest.fn().mockReturnThis(),
+            orWhere: jest.fn().mockReturnThis(),
+            select: jest.fn().mockReturnThis(),
+            getOne: jest.fn().mockReturnValueOnce(null), // Contoh pengembalian nilai ketika getOne dipanggil
+            execute: jest.fn().mockResolvedValueOnce([data]),
+        } as unknown as SelectQueryBuilder<UsersEntity>);
 
         await expect(
             authService.login({

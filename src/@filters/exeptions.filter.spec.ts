@@ -1,5 +1,5 @@
 import { AppExceptionsFilter } from './exeptions.filter'; // Update the path accordingly
-import { ArgumentsHost, HttpException, HttpStatus, } from '@nestjs/common';
+import { ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
 import { mock, instance, when, anything } from 'ts-mockito';
 
@@ -14,7 +14,9 @@ describe('AppExceptionsFilter', () => {
         const mockArgumentsHost = mock<ArgumentsHost>();
         const mockResponse = mock<Response>();
 
-        when(mockResponse.status(anything())).thenReturn(instance(mockResponse));
+        when(mockResponse.status(anything())).thenReturn(
+            instance(mockResponse),
+        );
         when(mockResponse.json(anything())).thenReturn(instance(mockResponse));
 
         when(mockArgumentsHost.switchToHttp()).thenReturn({
@@ -26,9 +28,14 @@ describe('AppExceptionsFilter', () => {
             HttpStatus.BAD_REQUEST,
         );
 
-        appExceptionsFilter.catch(mockHttpException, instance(mockArgumentsHost));
+        appExceptionsFilter.catch(
+            mockHttpException,
+            instance(mockArgumentsHost),
+        );
 
-        expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.BAD_REQUEST);
+        expect(mockResponse.status).toHaveBeenCalledWith(
+            HttpStatus.BAD_REQUEST,
+        );
         expect(mockResponse.json).toHaveBeenCalledWith({
             status: false,
             code: HttpStatus.BAD_REQUEST,
@@ -50,14 +57,15 @@ describe('AppExceptionsFilter', () => {
 
         appExceptionsFilter.catch(mockHttpException, mockArgumentsHost as any);
 
-        expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.BAD_REQUEST);
+        expect(mockResponse.status).toHaveBeenCalledWith(
+            HttpStatus.BAD_REQUEST,
+        );
         expect(mockResponse.json).toHaveBeenCalledWith({
             status: false,
             code: HttpStatus.BAD_REQUEST,
             message: 'Custom error message',
         });
     });
-
 
     // it('should handle non-HttpException and return internal server error response', () => {
     //     const mockArgumentsHost = mock<ArgumentsHost>();
@@ -69,7 +77,6 @@ describe('AppExceptionsFilter', () => {
     //     when(mockArgumentsHost.switchToHttp()).thenReturn({
     //         getResponse: () => instance(mockResponse),
     //     } as any);
-
 
     //     const mockError = new Error('Some unexpected error');
 

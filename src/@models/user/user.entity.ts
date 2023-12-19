@@ -1,6 +1,12 @@
-import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, OneToMany, Unique } from 'typeorm';
+import {
+    BeforeInsert,
+    Column,
+    Entity,
+    JoinTable,
+    ManyToMany,
+    Unique,
+} from 'typeorm';
 import { BaseEntity } from '../base.entity';
-import { UserRolesEntity } from './user-roles.entity';
 import * as bcrypt from 'bcrypt';
 import { RolesEntity } from '../role';
 
@@ -36,7 +42,7 @@ export class UsersEntity extends BaseEntity {
     // relation table
 
     @ManyToMany(() => RolesEntity, (roles) => roles.users)
-    @JoinTable({ name: "user_roles", synchronize: false })
+    @JoinTable({ name: 'user_roles', synchronize: false })
     roles: RolesEntity[];
 
     //build funct

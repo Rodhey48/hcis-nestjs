@@ -11,7 +11,10 @@ describe('LoginValidatePipe', () => {
 
     it('should throw BadRequestException for incomplete data', async () => {
         const value = {}; // Provide incomplete data
-        const metadata: ArgumentMetadata = { type: 'body', metatype: LoginUserDTO };
+        const metadata: ArgumentMetadata = {
+            type: 'body',
+            metatype: LoginUserDTO,
+        };
 
         await expect(async () => {
             await loginValidatePipe.transform(value, metadata);
@@ -20,7 +23,10 @@ describe('LoginValidatePipe', () => {
 
     it('should throw BadRequestException for metatype not same', async () => {
         const value = {}; // Provide incomplete data
-        const metadata: ArgumentMetadata = { type: 'body', metatype: RegisterUserDTO };
+        const metadata: ArgumentMetadata = {
+            type: 'body',
+            metatype: RegisterUserDTO,
+        };
 
         await expect(async () => {
             await loginValidatePipe.transform(value, metadata);
@@ -29,8 +35,10 @@ describe('LoginValidatePipe', () => {
 
     it('should transform and validate the input data', async () => {
         const value = { identifier: 'user@example.com', password: 'password' };
-        const metadata: ArgumentMetadata = { type: 'body', metatype: LoginUserDTO };
-
+        const metadata: ArgumentMetadata = {
+            type: 'body',
+            metatype: LoginUserDTO,
+        };
 
         const result = await loginValidatePipe.transform(value, metadata);
 
@@ -41,8 +49,10 @@ describe('LoginValidatePipe', () => {
 
     it('should throw BadRequestException for validation errors', async () => {
         const value = { identifier: '', password: '' }; // Invalid data
-        const metadata: ArgumentMetadata = { type: 'body', metatype: LoginUserDTO };
-
+        const metadata: ArgumentMetadata = {
+            type: 'body',
+            metatype: LoginUserDTO,
+        };
 
         await expect(async () => {
             await loginValidatePipe.transform(value, metadata);

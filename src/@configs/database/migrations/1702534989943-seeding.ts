@@ -40,9 +40,11 @@ export class Seeding1702534989343 implements MigrationInterface {
         // sedding user
 
         for (const user of dataUser) {
-            const insertedUser = await queryRunner.query(
-                `INSERT INTO users (email, name, username, phone, password) VALUES ('${user.email
-                }', '${user.name}', '${user.username}', '${user.phone
+            await queryRunner.query(
+                `INSERT INTO users (email, name, username, phone, password) VALUES ('${
+                    user.email
+                }', '${user.name}', '${user.username}', '${
+                    user.phone
                 }', '${await this.bcrypt.createHashPassword(user.password)}')`,
             );
 
@@ -55,8 +57,8 @@ export class Seeding1702534989343 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query('DELETE FROM users')
-        await queryRunner.query('DELETE FROM roles')
-        await queryRunner.query('DELETE FROM user_roles')
+        await queryRunner.query('DELETE FROM users');
+        await queryRunner.query('DELETE FROM roles');
+        await queryRunner.query('DELETE FROM user_roles');
     }
 }

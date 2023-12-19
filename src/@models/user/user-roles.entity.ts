@@ -10,7 +10,7 @@ export class UserRolesEntity extends BaseEntity {
         Object.assign(this, partial);
     }
 
-    @ManyToOne(() => UsersEntity, user => user.roles, {
+    @ManyToOne(() => UsersEntity, (user) => user.roles, {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
         eager: true,
@@ -18,7 +18,7 @@ export class UserRolesEntity extends BaseEntity {
     @JoinColumn()
     user: UsersEntity;
 
-    @ManyToOne(() => RolesEntity, role => role.users, {
+    @ManyToOne(() => RolesEntity, (role) => role.users, {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
         eager: true,

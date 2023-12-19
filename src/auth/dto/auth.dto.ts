@@ -23,7 +23,7 @@ export class RegisterUserDTO {
     password: string;
 
     @IsNotEmpty({ message: "id role can't empty" })
-    @ApiProperty({ example: ["1213 eweewe3232", "23232dwedd-rr"] })
+    @ApiProperty({ example: ['1213 eweewe3232', '23232dwedd-rr'] })
     roleId: string[];
 }
 
